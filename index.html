@@ -5,40 +5,66 @@
 <meta name="description" content="Ustozlar Xazinasi: o'qituvchilar uchun qiziqarli dars metodlari, dars rejalari, testlar, taqdimotlar va interfaol o'yinlar to'plami.">
 <meta name="keywords" content="o'qituvchilar uchun materiallar, qiziqarli dars metodlari, dars rejalari, ustozlar xazinasi, interfaol metodlar">
 <meta property="og:title" content="Ustozlar Xazinasi"><meta property="og:description" content="O'qituvchilar uchun qiziqarli metodlar va dars materiallari to'plami."><meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f1ff;--card:#fff;--tx:#1d1a3a;--mut:#6b6891;--ac:#6c4cf5;--ac2:#ff7a59;--bd:#e3dffa}
-@media(prefers-color-scheme:dark){:root{--bg:#13112a;--card:#1e1b3d;--tx:#f0eeff;--mut:#9f9bc9;--bd:#34305f}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-.wrap{max-width:1000px;margin:0 auto;padding:16px}
-header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-h1{font-size:20px;margin:0}.badge{font-size:12px;color:var(--mut)}
-.hero{display:flex;flex-wrap:wrap;align-items:center;gap:24px;padding:28px 8px}
-.hero .t{flex:1 1 260px}.hero h2{font-size:clamp(26px,6vw,42px);margin:0 0 8px;line-height:1.1}.hero p{color:var(--mut);margin:0}
-.scene{width:140px;height:140px;margin:30px auto;perspective:700px}
-.cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:spin 14s linear infinite}
-.cube div{position:absolute;width:140px;height:140px;display:grid;place-items:center;font-size:44px;border-radius:18px;border:2px solid rgba(255,255,255,.5);background:linear-gradient(135deg,var(--ac),var(--ac2));opacity:.92}
-.cube div:nth-child(1){transform:translateZ(70px)}.cube div:nth-child(2){transform:rotateY(90deg) translateZ(70px)}.cube div:nth-child(3){transform:rotateY(180deg) translateZ(70px)}.cube div:nth-child(4){transform:rotateY(-90deg) translateZ(70px)}.cube div:nth-child(5){transform:rotateX(90deg) translateZ(70px)}.cube div:nth-child(6){transform:rotateX(-90deg) translateZ(70px)}
-@keyframes spin{from{transform:rotateX(-20deg) rotateY(0)}to{transform:rotateX(-20deg) rotateY(360deg)}}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding:8px 0}
-.tab{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 14px;border-radius:99px;cursor:pointer;white-space:nowrap;font-size:14px}.tab.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+:root{--bg:#07060f;--card:rgba(255,255,255,.05);--tx:#f4f1ea;--mut:#9b97b3;--ac:#e8c872;--ac2:#7c5cff;--ac3:#2ee6c5;--bd:rgba(255,255,255,.1);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Outfit,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.bg i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.45;animation:fl 18s ease-in-out infinite alternate}
+.bg i:nth-child(1){width:420px;height:420px;background:var(--ac2);top:-120px;left:-100px}
+.bg i:nth-child(2){width:360px;height:360px;background:#c9982f;bottom:-120px;right:-80px;animation-delay:-6s;opacity:.3}
+.bg i:nth-child(3){width:300px;height:300px;background:var(--ac3);top:45%;left:55%;animation-delay:-11s;opacity:.18}
+@keyframes fl{to{transform:translate(60px,-50px) scale(1.2)}}
+.wrap{max-width:1040px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;border:1px solid var(--bd);border-radius:18px;background:var(--card);backdrop-filter:blur(14px)}
+h1{font-size:19px;margin:0;letter-spacing:.3px}.badge{font-size:12px;color:var(--mut)}
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:34px 4px}
+.hero .t{flex:1 1 300px}
+.hero h2{font-size:clamp(32px,7vw,56px);margin:0 0 12px;line-height:1.05;font-weight:800;background:linear-gradient(120deg,#fff 10%,var(--ac) 50%,#ffb36b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);margin:0;font-size:16px;line-height:1.5}
+.scene{width:280px;height:280px;perspective:900px;margin:10px auto;flex:0 0 auto}
+.rig{position:relative;width:100%;height:100%;transform-style:preserve-3d;transform:rotateX(calc(-16deg + var(--rx,0deg))) rotateY(var(--ry,0deg));transition:transform .25s ease-out}
+.orb{position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#fff6d6,var(--ac) 35%,#8a5a12 75%);box-shadow:0 0 60px 12px rgba(232,200,114,.45),inset -8px -10px 24px rgba(0,0,0,.35);animation:pl 4s ease-in-out infinite}
+@keyframes pl{50%{transform:scale(1.1);box-shadow:0 0 90px 22px rgba(232,200,114,.6),inset -8px -10px 24px rgba(0,0,0,.35)}}
+.ring{position:absolute;inset:14px;border-radius:50%;border:1.5px solid transparent;animation:rs 14s linear infinite}
+.r1{--t:rotateX(72deg);border-color:rgba(232,200,114,.7)}
+.r2{--t:rotateY(72deg);inset:30px;border-color:rgba(124,92,255,.85);animation-duration:10s}
+.r3{--t:rotateX(40deg) rotateY(40deg);inset:0;border-color:rgba(46,230,197,.55);animation-duration:18s;animation-direction:reverse}
+@keyframes rs{from{transform:var(--t) rotateZ(0)}to{transform:var(--t) rotateZ(360deg)}}
+.orbit{position:absolute;inset:0;transform-style:preserve-3d;animation:oy 20s linear infinite}
+@keyframes oy{to{transform:rotateY(360deg)}}
+.chip{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px;display:grid;place-items:center;font-size:25px;border-radius:16px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.28);box-shadow:0 8px 24px rgba(0,0,0,.4);transform:rotateY(var(--a)) translateZ(135px)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+.tab{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:9px 16px;border-radius:99px;cursor:pointer;white-space:nowrap;font:inherit;font-size:14px;transition:.2s;backdrop-filter:blur(10px)}
+.tab:hover{border-color:var(--ac)}.tab.on{background:linear-gradient(120deg,var(--ac),#ffb36b);color:#1a1205;border-color:transparent;font-weight:600}
 input,select,textarea,button{font:inherit}
-input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);margin-bottom:8px}
-.btn{background:var(--ac);color:#fff;border:0;padding:10px 16px;border-radius:10px;cursor:pointer}.btn.g{background:var(--card);color:var(--tx);border:1px solid var(--bd)}.btn.r{background:#e5484d}
-.panel{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin:12px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;perspective:1000px;margin-top:10px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;transition:transform .15s,box-shadow .2s;transform-style:preserve-3d}
-.card:hover{box-shadow:0 18px 40px rgba(108,76,245,.25)}.card h3{margin:6px 0;font-size:17px}.card p{color:var(--mut);font-size:14px;margin:4px 0 10px}
-.tag{font-size:12px;color:var(--ac);font-weight:600}.meta{font-size:12px;color:var(--mut);display:flex;justify-content:space-between;gap:6px}
-.card a{color:var(--ac);font-weight:600;text-decoration:none}.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--bd);font-size:14px}
-.hide{display:none}.empty{color:var(--mut);text-align:center;padding:30px}
-.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}.cats div{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;font-size:14px}
+input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--bd);background:rgba(255,255,255,.06);color:var(--tx);margin-bottom:8px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--ac)}option{background:#15122b}
+.btn{background:linear-gradient(120deg,var(--ac),#ffb36b);color:#1a1205;border:0;padding:10px 18px;border-radius:12px;cursor:pointer;font-weight:600;transition:.2s;box-shadow:0 6px 24px rgba(232,200,114,.25)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(232,200,114,.4)}
+.btn.g{background:var(--card);color:var(--tx);border:1px solid var(--bd);box-shadow:none}.btn.r{background:#e5484d;color:#fff;box-shadow:none}
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:16px;margin:14px 0;backdrop-filter:blur(14px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;perspective:1000px;margin-top:12px}
+.card{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid var(--bd);border-radius:20px;padding:18px;transition:transform .15s,border-color .3s,box-shadow .3s;backdrop-filter:blur(14px);animation:up .6s backwards;animation-delay:calc(var(--i,0)*70ms)}
+@keyframes up{from{opacity:0;translate:0 26px}}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),rgba(232,200,114,.2),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover{border-color:rgba(232,200,114,.5);box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 40px rgba(124,92,255,.2)}.card:hover::before{opacity:1}
+.card h3{margin:8px 0 6px;font-size:18px}.card p{color:var(--mut);font-size:14px;margin:4px 0 12px;line-height:1.45}
+.tag{font-size:12px;color:var(--ac);font-weight:600;letter-spacing:.3px}.meta{font-size:12px;color:var(--mut);display:flex;justify-content:space-between;gap:6px}
+.card a{color:var(--ac);font-weight:600;text-decoration:none}.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--bd);font-size:14px}
+.hide{display:none}.empty{color:var(--mut);text-align:center;padding:40px}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}.cats div{background:rgba(255,255,255,.05);border:1px solid var(--bd);border-radius:14px;padding:13px;font-size:14px;transition:.25s}.cats div:hover{border-color:var(--ac);transform:translateY(-3px)}
+footer{text-align:center;color:var(--mut);font-size:11px;letter-spacing:.6px;padding:26px 0 18px;opacity:.75}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
+<div class="bg"><i></i><i></i><i></i></div>
 <div class="wrap">
 <header><h1>🎓 Ustozlar Xazinasi</h1><span><span class="badge" id="who"></span> <button class="btn" id="login">Google bilan kirish</button> <button class="btn g hide" id="logout">Chiqish</button></span></header>
 
 <section class="hero">
  <div class="t"><h2>Ustozlar uchun material xazinasi</h2><p>Qiziqarli dars metodlari, dars rejalari, testlar va taqdimotlar — o'qituvchilar birga to'playdigan bepul xazina.</p></div>
- <div class="scene"><div class="cube"><div>💡</div><div>📚</div><div>🎯</div><div>🎮</div><div>🎬</div><div>✏️</div></div></div>
+ <div class="scene"><div class="rig"><div class="r1 ring"></div><div class="r2 ring"></div><div class="r3 ring"></div><div class="orb"></div><div class="orbit"><div class="chip" style="--a:0deg">💡</div><div class="chip" style="--a:60deg">📚</div><div class="chip" style="--a:120deg">🎯</div><div class="chip" style="--a:180deg">🎮</div><div class="chip" style="--a:240deg">🎬</div><div class="chip" style="--a:300deg">✏️</div></div></div></div>
 </section>
 
 <section id="pub" class="panel"><b>Bo'limlar</b><br><br>
@@ -61,6 +87,7 @@ input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px soli
 
 <div class="panel hide" id="admin"><h3 style="margin-top:0">🔐 Admin: kirish boshqaruvi</h3><div id="reqs"></div><div id="mems"></div></div>
 </div>
+<footer>created by @azz_films</footer>
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -71,6 +98,7 @@ const auth=getAuth(app),db=getFirestore(app);
 const ADMIN="telbahacker2006@gmail.com";
 const CATS=["💡 Qiziqarli metodlar","📋 Dars rejalari","📝 Test va topshiriqlar","🖥 Taqdimotlar","🎮 Interfaol o'yinlar","🎬 Video darslar","📦 Boshqa"];
 const $=id=>document.getElementById(id);
+addEventListener("pointermove",e=>{const sc=document.querySelector(".scene");if(!sc)return;sc.style.setProperty("--rx",(e.clientY/innerHeight-.5)*-24+"deg");sc.style.setProperty("--ry",(e.clientX/innerWidth-.5)*40+"deg")});
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safe=u=>/^https?:\/\//i.test(u)?u:"";
 let U=null,isAdmin=false,cat="Hammasi",mats=[],unsubs=[];
@@ -91,7 +119,7 @@ function render(){
  $("grid").innerHTML=l.length?l.map(m=>{const u=safe(m.link),mine=!!U&&(m.uid===U.uid||isAdmin);
   return `<div class="card"><span class="tag">${esc(m.cat)}</span><h3>${esc(m.title)}</h3><p>${esc(m.desc)}</p><div class="meta"><span>👤 ${esc(m.author)}</span><span>${u?`<a href="${esc(u)}" target="_blank" rel="noopener">Ochish ↗</a>`:""} ${mine?`<a href="#" data-del="${esc(m.id)}" style="color:#e5484d">🗑</a>`:""}</span></div></div>`}).join(""):`<div class="empty" style="grid-column:1/-1">Hozircha material yo'q. Birinchi bo'lib qo'shing! ✨</div>`;
  document.querySelectorAll("[data-del]").forEach(a=>a.onclick=e=>{e.preventDefault();confirm("O'chirilsinmi?")&&deleteDoc(doc(db,"materials",a.dataset.del)).catch(()=>alert("Ruxsat yo'q"))});
- document.querySelectorAll(".card").forEach(c=>{c.onpointermove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`rotateY(${x*14}deg) rotateX(${-y*14}deg) translateZ(8px)`};c.onpointerleave=()=>c.style.transform=""})}
+ document.querySelectorAll(".card").forEach((c,i)=>{c.style.setProperty("--i",Math.min(i,12));c.onpointermove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.setProperty("--mx",(x+.5)*100+"%");c.style.setProperty("--my",(y+.5)*100+"%");c.style.transform=`rotateY(${x*12}deg) rotateX(${-y*12}deg) translateZ(8px)`};c.onpointerleave=()=>c.style.transform=""})}
 
 $("save").onclick=async()=>{
  const title=$("fT").value.trim();if(!title)return alert("Sarlavha kiriting");
