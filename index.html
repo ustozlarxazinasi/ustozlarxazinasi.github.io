@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ustozlar Xazinasi — o'qituvchilar uchun qiziqarli metodlar va dars materiallari</title>
+<meta name="description" content="Ustozlar Xazinasi: o'qituvchilar uchun qiziqarli dars metodlari, dars rejalari, testlar, taqdimotlar va interfaol o'yinlar to'plami.">
+<meta name="keywords" content="o'qituvchilar uchun materiallar, qiziqarli dars metodlari, dars rejalari, ustozlar xazinasi, interfaol metodlar">
+<meta property="og:title" content="Ustozlar Xazinasi"><meta property="og:description" content="O'qituvchilar uchun qiziqarli metodlar va dars materiallari to'plami."><meta property="og:type" content="website">
+<style>
+:root{--bg:#f4f1ff;--card:#fff;--tx:#1d1a3a;--mut:#6b6891;--ac:#6c4cf5;--ac2:#ff7a59;--bd:#e3dffa}
+@media(prefers-color-scheme:dark){:root{--bg:#13112a;--card:#1e1b3d;--tx:#f0eeff;--mut:#9f9bc9;--bd:#34305f}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+h1{font-size:20px;margin:0}.badge{font-size:12px;color:var(--mut)}
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:24px;padding:28px 8px}
+.hero .t{flex:1 1 260px}.hero h2{font-size:clamp(26px,6vw,42px);margin:0 0 8px;line-height:1.1}.hero p{color:var(--mut);margin:0}
+.scene{width:140px;height:140px;margin:30px auto;perspective:700px}
+.cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:spin 14s linear infinite}
+.cube div{position:absolute;width:140px;height:140px;display:grid;place-items:center;font-size:44px;border-radius:18px;border:2px solid rgba(255,255,255,.5);background:linear-gradient(135deg,var(--ac),var(--ac2));opacity:.92}
+.cube div:nth-child(1){transform:translateZ(70px)}.cube div:nth-child(2){transform:rotateY(90deg) translateZ(70px)}.cube div:nth-child(3){transform:rotateY(180deg) translateZ(70px)}.cube div:nth-child(4){transform:rotateY(-90deg) translateZ(70px)}.cube div:nth-child(5){transform:rotateX(90deg) translateZ(70px)}.cube div:nth-child(6){transform:rotateX(-90deg) translateZ(70px)}
+@keyframes spin{from{transform:rotateX(-20deg) rotateY(0)}to{transform:rotateX(-20deg) rotateY(360deg)}}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:8px 0}
+.tab{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 14px;border-radius:99px;cursor:pointer;white-space:nowrap;font-size:14px}.tab.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+input,select,textarea,button{font:inherit}
+input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);margin-bottom:8px}
+.btn{background:var(--ac);color:#fff;border:0;padding:10px 16px;border-radius:10px;cursor:pointer}.btn.g{background:var(--card);color:var(--tx);border:1px solid var(--bd)}.btn.r{background:#e5484d}
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;perspective:1000px;margin-top:10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;transition:transform .15s,box-shadow .2s;transform-style:preserve-3d}
+.card:hover{box-shadow:0 18px 40px rgba(108,76,245,.25)}.card h3{margin:6px 0;font-size:17px}.card p{color:var(--mut);font-size:14px;margin:4px 0 10px}
+.tag{font-size:12px;color:var(--ac);font-weight:600}.meta{font-size:12px;color:var(--mut);display:flex;justify-content:space-between;gap:6px}
+.card a{color:var(--ac);font-weight:600;text-decoration:none}.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--bd);font-size:14px}
+.hide{display:none}.empty{color:var(--mut);text-align:center;padding:30px}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}.cats div{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;font-size:14px}
+</style></head><body>
+<div class="wrap">
+<header><h1>🎓 Ustozlar Xazinasi</h1><span><span class="badge" id="who"></span> <button class="btn" id="login">Google bilan kirish</button> <button class="btn g hide" id="logout">Chiqish</button></span></header>
+
+<section class="hero">
+ <div class="t"><h2>Ustozlar uchun material xazinasi</h2><p>Qiziqarli dars metodlari, dars rejalari, testlar va taqdimotlar — o'qituvchilar birga to'playdigan bepul xazina.</p></div>
+ <div class="scene"><div class="cube"><div>💡</div><div>📚</div><div>🎯</div><div>🎮</div><div>🎬</div><div>✏️</div></div></div>
+</section>
+
+<section id="pub" class="panel"><b>Bo'limlar</b><br><br>
+ <div class="cats"><div>💡 Qiziqarli metodlar</div><div>📋 Dars rejalari</div><div>📝 Test va topshiriqlar</div><div>🖥 Taqdimotlar</div><div>🎮 Interfaol o'yinlar</div><div>🎬 Video darslar</div></div>
+ <p style="color:var(--mut);font-size:14px">Materiallarni ko'rish va qo'shish uchun Google bilan kiring va admin ruxsatini oling.</p></section>
+
+<div id="ask" class="panel hide"></div>
+
+<div id="main" class="hide">
+ <div class="tabs" id="tabs"></div>
+ <input id="q" placeholder="🔎 Qidirish…">
+ <button class="btn" id="addBtn">+ Material qo'shish</button>
+ <div class="panel hide" id="form">
+  <input id="fT" placeholder="Sarlavha"><select id="fC"></select>
+  <textarea id="fD" rows="3" placeholder="Qisqacha tavsif"></textarea>
+  <input id="fL" placeholder="Havola (Google Drive, YouTube...) — ixtiyoriy">
+  <button class="btn" id="save">Saqlash</button> <button class="btn g" id="cancel">Bekor</button></div>
+ <div class="grid" id="grid"></div>
+</div>
+
+<div class="panel hide" id="admin"><h3 style="margin-top:0">🔐 Admin: kirish boshqaruvi</h3><div id="reqs"></div><div id="mems"></div></div>
+</div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,collection,doc,getDoc,setDoc,deleteDoc,onSnapshot} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const app=initializeApp({apiKey:"AIzaSyDTKTFTFbg79LuRcLkoENgZVpicx_53qfc",authDomain:"ustozlarxazinasi.firebaseapp.com",projectId:"ustozlarxazinasi",storageBucket:"ustozlarxazinasi.firebasestorage.app",messagingSenderId:"863001951353",appId:"1:863001951353:web:5d0e2e5cde4a358e8a28a8"});
+const auth=getAuth(app),db=getFirestore(app);
+const ADMIN="telbahacker2006@gmail.com";
+const CATS=["💡 Qiziqarli metodlar","📋 Dars rejalari","📝 Test va topshiriqlar","🖥 Taqdimotlar","🎮 Interfaol o'yinlar","🎬 Video darslar","📦 Boshqa"];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safe=u=>/^https?:\/\//i.test(u)?u:"";
+let U=null,isAdmin=false,cat="Hammasi",mats=[],unsubs=[];
+
+$("login").onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>alert("Kirib bo'lmadi: "+e.code));
+$("logout").onclick=()=>signOut(auth);
+$("addBtn").onclick=()=>$("form").classList.toggle("hide");
+$("cancel").onclick=()=>$("form").classList.add("hide");
+$("q").oninput=render;
+
+function tabs(){$("tabs").innerHTML=["Hammasi",...CATS].map(c=>`<button class="tab ${c===cat?"on":""}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
+ $("tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.c;tabs();render()});
+ $("fC").innerHTML=CATS.map(c=>`<option>${esc(c)}</option>`).join("")}
+
+function render(){
+ const q=$("q").value.toLowerCase();
+ const l=mats.filter(m=>(cat==="Hammasi"||m.cat===cat)&&((m.title||"")+" "+(m.desc||"")).toLowerCase().includes(q)).sort((a,b)=>b.ts-a.ts);
+ $("grid").innerHTML=l.length?l.map(m=>{const u=safe(m.link),mine=m.uid===U.uid||isAdmin;
+  return `<div class="card"><span class="tag">${esc(m.cat)}</span><h3>${esc(m.title)}</h3><p>${esc(m.desc)}</p><div class="meta"><span>👤 ${esc(m.author)}</span><span>${u?`<a href="${esc(u)}" target="_blank" rel="noopener">Ochish ↗</a>`:""} ${mine?`<a href="#" data-del="${esc(m.id)}" style="color:#e5484d">🗑</a>`:""}</span></div></div>`}).join(""):`<div class="empty" style="grid-column:1/-1">Hozircha material yo'q. Birinchi bo'lib qo'shing! ✨</div>`;
+ document.querySelectorAll("[data-del]").forEach(a=>a.onclick=e=>{e.preventDefault();confirm("O'chirilsinmi?")&&deleteDoc(doc(db,"materials",a.dataset.del)).catch(()=>alert("Ruxsat yo'q"))});
+ document.querySelectorAll(".card").forEach(c=>{c.onpointermove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`rotateY(${x*14}deg) rotateX(${-y*14}deg) translateZ(8px)`};c.onpointerleave=()=>c.style.transform=""})}
+
+$("save").onclick=async()=>{
+ const title=$("fT").value.trim();if(!title)return alert("Sarlavha kiriting");
+ const id="m"+Date.now()+Math.random().toString(36).slice(2,6);
+ try{await setDoc(doc(db,"materials",id),{title,cat:$("fC").value,desc:$("fD").value.trim(),link:$("fL").value.trim(),uid:U.uid,author:U.displayName||"Ustoz",ts:Date.now()});
+  ["fT","fD","fL"].forEach(i=>$(i).value="");$("form").classList.add("hide")}catch(e){alert("Saqlab bo'lmadi: ruxsat yo'q")}};
+
+function showAsk(pending){
+ $("ask").classList.remove("hide");
+ $("ask").innerHTML=pending?"⏳ So'rovingiz yuborilgan. Admin ruxsat berishini kuting.":
+ `🔒 Materiallarni ko'rish va qo'shish uchun admin ruxsati kerak.<br><br><input id="ph" placeholder="Telefon raqamingiz (admin sizni tanishi uchun)"><button class="btn" id="req">Ruxsat so'rash</button>`;
+ if(!pending)$("req").onclick=async()=>{const p=$("ph").value.trim();if(!p)return alert("Telefon raqam yozing");
+  await setDoc(doc(db,"requests",U.uid),{name:U.displayName||"",email:U.email||"",phone:p,ts:Date.now()});showAsk(true)}}
+
+function startMain(){
+ $("main").classList.remove("hide");$("ask").classList.add("hide");$("pub").classList.add("hide");tabs();
+ unsubs.push(onSnapshot(collection(db,"materials"),s=>{mats=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{}));
+ if(isAdmin){$("admin").classList.remove("hide");
+  unsubs.push(onSnapshot(collection(db,"requests"),s=>{const a=s.docs;
+   $("reqs").innerHTML="<b>So'rovlar</b>"+(a.length?a.map(d=>{const r=d.data();return `<div class="row"><span>${esc(r.name)}<br><small>${esc(r.email)} · ${esc(r.phone)}</small></span><button class="btn" data-ok="${d.id}">Ruxsat</button></div>`}).join(""):`<div class="row" style="color:var(--mut)">So'rov yo'q</div>`);
+   document.querySelectorAll("[data-ok]").forEach(b=>b.onclick=async()=>{const r=a.find(x=>x.id===b.dataset.ok).data();await setDoc(doc(db,"members",b.dataset.ok),{name:r.name,email:r.email,ts:Date.now()});await deleteDoc(doc(db,"requests",b.dataset.ok))})},()=>{}));
+  unsubs.push(onSnapshot(collection(db,"members"),s=>{
+   $("mems").innerHTML="<b style='display:block;margin-top:10px'>Ruxsat berilganlar</b>"+(s.docs.length?s.docs.map(d=>`<div class="row"><span>${esc(d.data().name)}<br><small>${esc(d.data().email)}</small></span><button class="btn r" data-no="${d.id}">Olib tashlash</button></div>`).join(""):`<div class="row" style="color:var(--mut)">Hali hech kim</div>`);
+   document.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>deleteDoc(doc(db,"members",b.dataset.no)))},()=>{}))}}
+
+onAuthStateChanged(auth,async u=>{
+ unsubs.forEach(f=>f());unsubs=[];U=u;
+ ["main","ask","admin"].forEach(i=>$(i).classList.add("hide"));$("pub").classList.remove("hide");
+ $("login").classList.toggle("hide",!!u);$("logout").classList.toggle("hide",!u);
+ if(!u){$("who").textContent="";return}
+ isAdmin=u.email===ADMIN&&u.emailVerified;
+ $("who").textContent=(isAdmin?"👑 ":"")+(u.displayName||u.email);
+ try{
+  if(isAdmin||(await getDoc(doc(db,"members",u.uid))).exists())return startMain();
+  showAsk((await getDoc(doc(db,"requests",u.uid))).exists());
+ }catch(e){showAsk(false)}});
+</script></body></html>
