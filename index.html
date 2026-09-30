@@ -76,6 +76,7 @@ footer{text-align:center;color:var(--mut);font-size:11px;letter-spacing:.6px;pad
 <div id="main" class="hide">
  <div class="tabs" id="tabs"></div>
  <input id="q" placeholder="🔎 Qidirish…">
+ <select id="fA"><option value="">👥 Barcha ustozlar</option></select>
  <button class="btn hide" id="addBtn">+ Material qo'shish</button>
  <div class="panel hide" id="form">
   <input id="fT" placeholder="Sarlavha"><select id="fC"></select>
@@ -101,13 +102,13 @@ const $=id=>document.getElementById(id);
 addEventListener("pointermove",e=>{const sc=document.querySelector(".scene");if(!sc)return;sc.style.setProperty("--rx",(e.clientY/innerHeight-.5)*-24+"deg");sc.style.setProperty("--ry",(e.clientX/innerWidth-.5)*40+"deg")});
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safe=u=>/^https?:\/\//i.test(u)?u:"";
-let U=null,isAdmin=false,cat="Hammasi",mats=[],unsubs=[];
+let memMap={},U=null,isAdmin=false,cat="Hammasi",mats=[],unsubs=[];
 
 $("login").onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>alert("Kirib bo'lmadi: "+e.code));
 $("logout").onclick=()=>signOut(auth);
 $("addBtn").onclick=()=>$("form").classList.toggle("hide");
 $("cancel").onclick=()=>$("form").classList.add("hide");
-$("q").oninput=render;
+$("q").oninput=render;$("fA").onchange=render;
 
 function tabs(){$("tabs").innerHTML=["Hammasi",...CATS].map(c=>`<button class="tab ${c===cat?"on":""}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
  $("tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.c;tabs();render()});
@@ -115,9 +116,14 @@ function tabs(){$("tabs").innerHTML=["Hammasi",...CATS].map(c=>`<button class="t
 
 function render(){
  const q=$("q").value.toLowerCase();
- const l=mats.filter(m=>(cat==="Hammasi"||m.cat===cat)&&((m.title||"")+" "+(m.desc||"")).toLowerCase().includes(q)).sort((a,b)=>b.ts-a.ts);
+ const fa0=$("fA").value,au={};mats.forEach(m=>{if(m.uid)au[m.uid]=m.author||"Ustoz"});
+ const cnt={},seen={};Object.values(au).forEach(n=>cnt[n]=(cnt[n]||0)+1);
+ const opts='<option value="">👥 Barcha ustozlar</option>'+Object.entries(au).map(([u,n])=>{seen[n]=(seen[n]||0)+1;return `<option value="${esc(u)}">${esc(n)}${cnt[n]>1?" #"+seen[n]:""}</option>`}).join("");
+ if($("fA").dataset.o!==opts){$("fA").innerHTML=opts;$("fA").dataset.o=opts;$("fA").value=au[fa0]?fa0:""}
+ const fa=$("fA").value;
+ const l=mats.filter(m=>(cat==="Hammasi"||m.cat===cat)&&(!fa||m.uid===fa)&&((m.title||"")+" "+(m.desc||"")).toLowerCase().includes(q)).sort((a,b)=>b.ts-a.ts);
  $("grid").innerHTML=l.length?l.map(m=>{const u=safe(m.link),mine=!!U&&(m.uid===U.uid||isAdmin);
-  return `<div class="card"><span class="tag">${esc(m.cat)}</span><h3>${esc(m.title)}</h3><p>${esc(m.desc)}</p><div class="meta"><span>👤 ${esc(m.author)}</span><span>${u?`<a href="${esc(u)}" target="_blank" rel="noopener">Ochish ↗</a>`:""} ${mine?`<a href="#" data-del="${esc(m.id)}" style="color:#e5484d">🗑</a>`:""}</span></div></div>`}).join(""):`<div class="empty" style="grid-column:1/-1">Hozircha material yo'q. Birinchi bo'lib qo'shing! ✨</div>`;
+  return `<div class="card"><span class="tag">${esc(m.cat)}</span><h3>${esc(m.title)}</h3><p>${esc(m.desc)}</p><div class="meta"><span>👤 ${esc(m.author)}${isAdmin&&memMap[m.uid]?`<br><small>${esc(memMap[m.uid])}</small>`:""}</span><span>${u?`<a href="${esc(u)}" target="_blank" rel="noopener">Ochish ↗</a>`:""} ${mine?`<a href="#" data-del="${esc(m.id)}" style="color:#e5484d">🗑</a>`:""}</span></div></div>`}).join(""):`<div class="empty" style="grid-column:1/-1">Hozircha material yo'q. Birinchi bo'lib qo'shing! ✨</div>`;
  document.querySelectorAll("[data-del]").forEach(a=>a.onclick=e=>{e.preventDefault();confirm("O'chirilsinmi?")&&deleteDoc(doc(db,"materials",a.dataset.del)).catch(()=>alert("Ruxsat yo'q"))});
  document.querySelectorAll(".card").forEach((c,i)=>{c.style.setProperty("--i",Math.min(i,12));c.onpointermove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.setProperty("--mx",(x+.5)*100+"%");c.style.setProperty("--my",(y+.5)*100+"%");c.style.transform=`rotateY(${x*12}deg) rotateX(${-y*12}deg) translateZ(8px)`};c.onpointerleave=()=>c.style.transform=""})}
 
@@ -140,14 +146,14 @@ function startMain(){
   unsubs.push(onSnapshot(collection(db,"requests"),s=>{const a=s.docs;
    $("reqs").innerHTML="<b>So'rovlar</b>"+(a.length?a.map(d=>{const r=d.data();return `<div class="row"><span>${esc(r.name)}<br><small>${esc(r.email)} · ${esc(r.phone)}</small></span><button class="btn" data-ok="${d.id}">Ruxsat</button></div>`}).join(""):`<div class="row" style="color:var(--mut)">So'rov yo'q</div>`);
    document.querySelectorAll("[data-ok]").forEach(b=>b.onclick=async()=>{const r=a.find(x=>x.id===b.dataset.ok).data();await setDoc(doc(db,"members",b.dataset.ok),{name:r.name,email:r.email,ts:Date.now()});await deleteDoc(doc(db,"requests",b.dataset.ok))})},()=>{}));
-  unsubs.push(onSnapshot(collection(db,"members"),s=>{
+  unsubs.push(onSnapshot(collection(db,"members"),s=>{memMap=Object.fromEntries(s.docs.map(d=>[d.id,d.data().email]));memMap[U.uid]=U.email;render();
    $("mems").innerHTML="<b style='display:block;margin-top:10px'>Ruxsat berilganlar</b>"+(s.docs.length?s.docs.map(d=>`<div class="row"><span>${esc(d.data().name)}<br><small>${esc(d.data().email)}</small></span><button class="btn r" data-no="${d.id}">Olib tashlash</button></div>`).join(""):`<div class="row" style="color:var(--mut)">Hali hech kim</div>`);
    document.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>deleteDoc(doc(db,"members",b.dataset.no)))},()=>{}))}}
 
 tabs();$("main").classList.remove("hide");
 onSnapshot(collection(db,"materials"),s=>{mats=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{});
 onAuthStateChanged(auth,async u=>{
- unsubs.forEach(f=>f());unsubs=[];U=u;
+ unsubs.forEach(f=>f());unsubs=[];U=u;memMap={};
  ["ask","admin","addBtn","form"].forEach(i=>$(i).classList.add("hide"));render();
  $("login").classList.toggle("hide",!!u);$("logout").classList.toggle("hide",!u);
  if(!u){$("who").textContent="";return}
