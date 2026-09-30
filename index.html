@@ -43,14 +43,14 @@ input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px soli
 
 <section id="pub" class="panel"><b>Bo'limlar</b><br><br>
  <div class="cats"><div>💡 Qiziqarli metodlar</div><div>📋 Dars rejalari</div><div>📝 Test va topshiriqlar</div><div>🖥 Taqdimotlar</div><div>🎮 Interfaol o'yinlar</div><div>🎬 Video darslar</div></div>
- <p style="color:var(--mut);font-size:14px">Materiallarni ko'rish va qo'shish uchun Google bilan kiring va admin ruxsatini oling.</p></section>
+ <p style="color:var(--mut);font-size:14px">Materiallarni hamma ko'ra oladi, ro'yxatdan o'tish shart emas. Material qo'shmoqchi bo'lgan ustozlar Google bilan kirib, admin ruxsatini oladi.</p></section>
 
 <div id="ask" class="panel hide"></div>
 
 <div id="main" class="hide">
  <div class="tabs" id="tabs"></div>
  <input id="q" placeholder="🔎 Qidirish…">
- <button class="btn" id="addBtn">+ Material qo'shish</button>
+ <button class="btn hide" id="addBtn">+ Material qo'shish</button>
  <div class="panel hide" id="form">
   <input id="fT" placeholder="Sarlavha"><select id="fC"></select>
   <textarea id="fD" rows="3" placeholder="Qisqacha tavsif"></textarea>
@@ -88,7 +88,7 @@ function tabs(){$("tabs").innerHTML=["Hammasi",...CATS].map(c=>`<button class="t
 function render(){
  const q=$("q").value.toLowerCase();
  const l=mats.filter(m=>(cat==="Hammasi"||m.cat===cat)&&((m.title||"")+" "+(m.desc||"")).toLowerCase().includes(q)).sort((a,b)=>b.ts-a.ts);
- $("grid").innerHTML=l.length?l.map(m=>{const u=safe(m.link),mine=m.uid===U.uid||isAdmin;
+ $("grid").innerHTML=l.length?l.map(m=>{const u=safe(m.link),mine=!!U&&(m.uid===U.uid||isAdmin);
   return `<div class="card"><span class="tag">${esc(m.cat)}</span><h3>${esc(m.title)}</h3><p>${esc(m.desc)}</p><div class="meta"><span>👤 ${esc(m.author)}</span><span>${u?`<a href="${esc(u)}" target="_blank" rel="noopener">Ochish ↗</a>`:""} ${mine?`<a href="#" data-del="${esc(m.id)}" style="color:#e5484d">🗑</a>`:""}</span></div></div>`}).join(""):`<div class="empty" style="grid-column:1/-1">Hozircha material yo'q. Birinchi bo'lib qo'shing! ✨</div>`;
  document.querySelectorAll("[data-del]").forEach(a=>a.onclick=e=>{e.preventDefault();confirm("O'chirilsinmi?")&&deleteDoc(doc(db,"materials",a.dataset.del)).catch(()=>alert("Ruxsat yo'q"))});
  document.querySelectorAll(".card").forEach(c=>{c.onpointermove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`rotateY(${x*14}deg) rotateX(${-y*14}deg) translateZ(8px)`};c.onpointerleave=()=>c.style.transform=""})}
@@ -102,13 +102,12 @@ $("save").onclick=async()=>{
 function showAsk(pending){
  $("ask").classList.remove("hide");
  $("ask").innerHTML=pending?"⏳ So'rovingiz yuborilgan. Admin ruxsat berishini kuting.":
- `🔒 Materiallarni ko'rish va qo'shish uchun admin ruxsati kerak.<br><br><input id="ph" placeholder="Telefon raqamingiz (admin sizni tanishi uchun)"><button class="btn" id="req">Ruxsat so'rash</button>`;
+ `🔒 Material qo'shish uchun admin ruxsati kerak (ko'rish hamma uchun ochiq).<br><br><input id="ph" placeholder="Telefon raqamingiz (admin sizni tanishi uchun)"><button class="btn" id="req">Ruxsat so'rash</button>`;
  if(!pending)$("req").onclick=async()=>{const p=$("ph").value.trim();if(!p)return alert("Telefon raqam yozing");
   await setDoc(doc(db,"requests",U.uid),{name:U.displayName||"",email:U.email||"",phone:p,ts:Date.now()});showAsk(true)}}
 
 function startMain(){
- $("main").classList.remove("hide");$("ask").classList.add("hide");$("pub").classList.add("hide");tabs();
- unsubs.push(onSnapshot(collection(db,"materials"),s=>{mats=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{}));
+ $("ask").classList.add("hide");$("addBtn").classList.remove("hide");render();
  if(isAdmin){$("admin").classList.remove("hide");
   unsubs.push(onSnapshot(collection(db,"requests"),s=>{const a=s.docs;
    $("reqs").innerHTML="<b>So'rovlar</b>"+(a.length?a.map(d=>{const r=d.data();return `<div class="row"><span>${esc(r.name)}<br><small>${esc(r.email)} · ${esc(r.phone)}</small></span><button class="btn" data-ok="${d.id}">Ruxsat</button></div>`}).join(""):`<div class="row" style="color:var(--mut)">So'rov yo'q</div>`);
@@ -117,9 +116,11 @@ function startMain(){
    $("mems").innerHTML="<b style='display:block;margin-top:10px'>Ruxsat berilganlar</b>"+(s.docs.length?s.docs.map(d=>`<div class="row"><span>${esc(d.data().name)}<br><small>${esc(d.data().email)}</small></span><button class="btn r" data-no="${d.id}">Olib tashlash</button></div>`).join(""):`<div class="row" style="color:var(--mut)">Hali hech kim</div>`);
    document.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>deleteDoc(doc(db,"members",b.dataset.no)))},()=>{}))}}
 
+tabs();$("main").classList.remove("hide");
+onSnapshot(collection(db,"materials"),s=>{mats=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{});
 onAuthStateChanged(auth,async u=>{
  unsubs.forEach(f=>f());unsubs=[];U=u;
- ["main","ask","admin"].forEach(i=>$(i).classList.add("hide"));$("pub").classList.remove("hide");
+ ["ask","admin","addBtn","form"].forEach(i=>$(i).classList.add("hide"));render();
  $("login").classList.toggle("hide",!!u);$("logout").classList.toggle("hide",!u);
  if(!u){$("who").textContent="";return}
  isAdmin=u.email===ADMIN&&u.emailVerified;
