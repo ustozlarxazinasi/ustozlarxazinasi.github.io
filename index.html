@@ -4,10 +4,12 @@
 <title>Ustozlar Xazinasi — o'qituvchilar uchun qiziqarli metodlar va dars materiallari</title>
 <meta name="description" content="Ustozlar Xazinasi: o'qituvchilar uchun qiziqarli dars metodlari, dars rejalari, testlar, taqdimotlar va interfaol o'yinlar to'plami.">
 <meta name="keywords" content="o'qituvchilar uchun materiallar, qiziqarli dars metodlari, dars rejalari, ustozlar xazinasi, interfaol metodlar">
-<meta property="og:title" content="Ustozlar Xazinasi"><meta property="og:description" content="O'qituvchilar uchun qiziqarli metodlar va dars materiallari to'plami."><meta property="og:type" content="website">
+<meta property="og:title" content="Ustozlar Xazinasi"><meta property="og:description" content="O'qituvchilar uchun qiziqarli metodlar va dars materiallari to'plami."><meta property="og:type" content="website"><meta property="og:url" content="https://ustozlarxazinasi.github.io/"><meta property="og:image" content="https://ustozlarxazinasi.github.io/og.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://ustozlarxazinasi.github.io/"><meta name="theme-color" content="#07060f">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Ustozlar Xazinasi","url":"https://ustozlarxazinasi.github.io/","inLanguage":"uz","description":"O'qituvchilar uchun qiziqarli dars metodlari va materiallar to'plami"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#07060f;--card:rgba(255,255,255,.05);--tx:#f4f1ea;--mut:#9b97b3;--ac:#e8c872;--ac2:#7c5cff;--ac3:#2ee6c5;--bd:rgba(255,255,255,.1);color-scheme:dark}
+:root{--bg:#07060f;--card:rgba(255,255,255,.05);--tx:#f4f1ea;--mut:#b7b3cf;--ac:#e8c872;--ac2:#7c5cff;--ac3:#2ee6c5;--bd:rgba(255,255,255,.1);color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:Outfit,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;overflow-x:hidden}
 .bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
@@ -55,13 +57,26 @@ input:focus,select:focus,textarea:focus{border-color:var(--ac)}option{background
 .card a{color:var(--ac);font-weight:600;text-decoration:none}.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--bd);font-size:14px}
 .hide{display:none}.empty{color:var(--mut);text-align:center;padding:40px}
 .cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}.cats div{background:rgba(255,255,255,.05);border:1px solid var(--bd);border-radius:14px;padding:13px;font-size:14px;transition:.25s}.cats div:hover{border-color:var(--ac);transform:translateY(-3px)}
-footer{text-align:center;color:var(--mut);font-size:11px;letter-spacing:.6px;padding:26px 0 18px;opacity:.75}
+footer{text-align:center;color:var(--mut);font-size:11px;letter-spacing:.6px;padding:26px 0 18px;opacity:1}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+#iab{border-color:#e5484d}
+#vid{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:50;display:grid;place-items:center;padding:12px}
+#vid.hide{display:none}.vb{width:min(900px,100%);position:relative}.vb iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:14px;background:#000}
+#vx{position:absolute;right:0;top:-44px}
+.lite *{backdrop-filter:none!important}.lite .bg i{animation:none;filter:blur(50px)}
+[data-theme=light]{--bg:#f6f3ee;--card:rgba(255,255,255,.75);--tx:#1c1830;--mut:#5d5978;--bd:rgba(28,24,48,.14);--ac:#9a6a00;color-scheme:light}
+[data-theme=light] .btn,[data-theme=light] .tab.on{color:#fff}[data-theme=light] .btn.g{color:var(--tx)}
+[data-theme=light] .card{background:linear-gradient(160deg,#fff,rgba(255,255,255,.6))}
+[data-theme=light] .cats div,[data-theme=light] input,[data-theme=light] select,[data-theme=light] textarea{background:rgba(255,255,255,.8)}
+[data-theme=light] .hero h2{background:linear-gradient(120deg,#1c1830,#9a6a00,#d97706);-webkit-background-clip:text;background-clip:text}
+[data-theme=light] .bg i{opacity:.18}[data-theme=light] option{background:#fff}
 </style></head><body>
 <div class="bg"><i></i><i></i><i></i></div>
 <div class="wrap">
-<header><h1>🎓 Ustozlar Xazinasi</h1><span><span class="badge" id="who"></span> <button class="btn" id="login">Google bilan kirish</button> <button class="btn g hide" id="logout">Chiqish</button></span></header>
+<header><h1>🎓 Ustozlar Xazinasi</h1><span><span class="badge" id="who"></span> <button class="btn g" id="th" title="Rejim">🌓</button> <button class="btn" id="login">Google bilan kirish</button> <button class="btn g hide" id="logout">Chiqish</button></span></header>
 
+<div id="iab" class="panel hide">⚠️ Google bilan kirish bu ilova ichida ishlamasligi mumkin. Havolani <b>Chrome yoki Safari</b> brauzerida oching. <button class="btn g" id="cp">Havolani nusxalash</button></div>
 <section class="hero">
  <div class="t"><h2>Ustozlar uchun material xazinasi</h2><p>Qiziqarli dars metodlari, dars rejalari, testlar va taqdimotlar — o'qituvchilar birga to'playdigan bepul xazina.</p></div>
  <div class="scene"><div class="rig"><div class="r1 ring"></div><div class="r2 ring"></div><div class="r3 ring"></div><div class="orb"></div><div class="orbit"><div class="chip" style="--a:0deg">💡</div><div class="chip" style="--a:60deg">📚</div><div class="chip" style="--a:120deg">🎯</div><div class="chip" style="--a:180deg">🎮</div><div class="chip" style="--a:240deg">🎬</div><div class="chip" style="--a:300deg">✏️</div></div></div></div>
@@ -79,21 +94,23 @@ footer{text-align:center;color:var(--mut);font-size:11px;letter-spacing:.6px;pad
  <select id="fA"><option value="">👥 Barcha ustozlar</option></select>
  <button class="btn hide" id="addBtn">+ Material qo'shish</button>
  <div class="panel hide" id="form">
-  <input id="fT" placeholder="Sarlavha"><select id="fC"></select>
-  <textarea id="fD" rows="3" placeholder="Qisqacha tavsif"></textarea>
-  <input id="fL" placeholder="Havola (Google Drive, YouTube...) — ixtiyoriy">
+  <input id="fT" maxlength="120" placeholder="Sarlavha"><select id="fC"></select>
+  <textarea id="fD" rows="3" maxlength="600" placeholder="Qisqacha tavsif"></textarea>
+  <input id="fL" maxlength="500" placeholder="Havola (Google Drive, YouTube...) — ixtiyoriy">
   <button class="btn" id="save">Saqlash</button> <button class="btn g" id="cancel">Bekor</button></div>
  <div class="grid" id="grid"></div>
+ <div style="text-align:center"><button class="btn g hide" id="more">Yana ko'rsatish</button></div>
 </div>
 
 <div class="panel hide" id="admin"><h3 style="margin-top:0">🔐 Admin: kirish boshqaruvi</h3><div id="reqs"></div><div id="mems"></div></div>
 </div>
+<div id="vid" class="hide"><div class="vb"><button class="btn g" id="vx">✕ Yopish</button><iframe id="vf" allowfullscreen allow="encrypted-media; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div>
 <footer>created by @azz_films</footer>
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,collection,doc,getDoc,setDoc,deleteDoc,onSnapshot} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getFirestore,collection,doc,getDoc,setDoc,deleteDoc,onSnapshot,query,orderBy,limit} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const app=initializeApp({apiKey:"AIzaSyDTKTFTFbg79LuRcLkoENgZVpicx_53qfc",authDomain:"ustozlarxazinasi.firebaseapp.com",projectId:"ustozlarxazinasi",storageBucket:"ustozlarxazinasi.firebasestorage.app",messagingSenderId:"863001951353",appId:"1:863001951353:web:5d0e2e5cde4a358e8a28a8"});
 const auth=getAuth(app),db=getFirestore(app);
 const ADMIN="telbahacker2006@gmail.com";
@@ -102,12 +119,24 @@ const $=id=>document.getElementById(id);
 addEventListener("pointermove",e=>{const sc=document.querySelector(".scene");if(!sc)return;sc.style.setProperty("--rx",(e.clientY/innerHeight-.5)*-24+"deg");sc.style.setProperty("--ry",(e.clientX/innerWidth-.5)*40+"deg")});
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safe=u=>/^https?:\/\//i.test(u)?u:"";
+let lim=30,unM=null,editId=null;
+try{if(localStorage.getItem("th")==="light")document.documentElement.dataset.theme="light"}catch(e){}
+$("th").onclick=()=>{const l=document.documentElement.dataset.theme==="light";document.documentElement.dataset.theme=l?"dark":"light";try{localStorage.setItem("th",l?"dark":"light")}catch(e){}};
+if((navigator.hardwareConcurrency||8)<=4||(navigator.deviceMemory||4)<=2)document.documentElement.classList.add("lite");
+if(/FBAN|FBAV|Instagram|Telegram|TikTok|Line\/|; wv\)/i.test(navigator.userAgent))$("iab").classList.remove("hide");
+$("cp").onclick=()=>{navigator.clipboard?.writeText(location.href).then(()=>alert("Nusxalandi. Chrome yoki Safari'ga qo'ying."),()=>prompt("Nusxa oling:",location.href))};
+function embed(u){if(!u)return"";let m;
+ if(m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/))([\w-]{11})/))return"https://www.youtube-nocookie.com/embed/"+m[1];
+ if(m=u.match(/drive\.google\.com\/file\/d\/([\w-]+)/))return"https://drive.google.com/file/d/"+m[1]+"/preview";return""}
+$("vx").onclick=()=>{$("vf").src="";$("vid").classList.add("hide")};
+$("more").onclick=()=>{lim+=30;listen()};
+function listen(){unM&&unM();unM=onSnapshot(query(collection(db,"materials"),orderBy("ts","desc"),limit(lim)),s=>{mats=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{})}
 let memMap={},U=null,isAdmin=false,cat="Hammasi",mats=[],unsubs=[];
 
-$("login").onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>alert("Kirib bo'lmadi: "+e.code));
+$("login").onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>alert("Kirib bo'lmadi ("+e.code+"). Havolani Chrome yoki Safari brauzerida oching."));
 $("logout").onclick=()=>signOut(auth);
 $("addBtn").onclick=()=>$("form").classList.toggle("hide");
-$("cancel").onclick=()=>$("form").classList.add("hide");
+$("cancel").onclick=()=>{editId=null;$("form").classList.add("hide")};
 $("q").oninput=render;$("fA").onchange=render;
 
 function tabs(){$("tabs").innerHTML=["Hammasi",...CATS].map(c=>`<button class="tab ${c===cat?"on":""}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
@@ -122,16 +151,20 @@ function render(){
  if($("fA").dataset.o!==opts){$("fA").innerHTML=opts;$("fA").dataset.o=opts;$("fA").value=au[fa0]?fa0:""}
  const fa=$("fA").value;
  const l=mats.filter(m=>(cat==="Hammasi"||m.cat===cat)&&(!fa||m.uid===fa)&&((m.title||"")+" "+(m.desc||"")).toLowerCase().includes(q)).sort((a,b)=>b.ts-a.ts);
- $("grid").innerHTML=l.length?l.map(m=>{const u=safe(m.link),mine=!!U&&(m.uid===U.uid||isAdmin);
-  return `<div class="card"><span class="tag">${esc(m.cat)}</span><h3>${esc(m.title)}</h3><p>${esc(m.desc)}</p><div class="meta"><span>👤 ${esc(m.author)}${isAdmin&&memMap[m.uid]?`<br><small>${esc(memMap[m.uid])}</small>`:""}</span><span>${u?`<a href="${esc(u)}" target="_blank" rel="noopener">Ochish ↗</a>`:""} ${mine?`<a href="#" data-del="${esc(m.id)}" style="color:#e5484d">🗑</a>`:""}</span></div></div>`}).join(""):`<div class="empty" style="grid-column:1/-1">Hozircha material yo'q. Birinchi bo'lib qo'shing! ✨</div>`;
+ $("grid").innerHTML=l.length?l.map(m=>{const u=safe(m.link),mine=!!U&&(m.uid===U.uid||isAdmin),em=embed(u);
+  return `<div class="card"><span class="tag">${esc(m.cat)}</span><h3>${esc(m.title)}</h3><p>${esc(m.desc)}</p><div class="meta"><span>👤 ${esc(m.author)}${isAdmin&&memMap[m.uid]?`<br><small>${esc(memMap[m.uid])}</small>`:""}</span><span>${em?`<a href="#" data-play="${esc(em)}">▶ Ko'rish</a> `:""}${u?`<a href="${esc(u)}" target="_blank" rel="noopener">Ochish ↗</a>`:""} ${mine?`<a href="#" data-edit="${esc(m.id)}">✏️</a> <a href="#" data-del="${esc(m.id)}" style="color:#e5484d">🗑</a>`:""}</span></div></div>`}).join(""):`<div class="empty" style="grid-column:1/-1">Hozircha material yo'q. Birinchi bo'lib qo'shing! ✨</div>`;
  document.querySelectorAll("[data-del]").forEach(a=>a.onclick=e=>{e.preventDefault();confirm("O'chirilsinmi?")&&deleteDoc(doc(db,"materials",a.dataset.del)).catch(()=>alert("Ruxsat yo'q"))});
+ document.querySelectorAll("[data-play]").forEach(a=>a.onclick=e=>{e.preventDefault();$("vf").src=a.dataset.play;$("vid").classList.remove("hide")});
+ document.querySelectorAll("[data-edit]").forEach(a=>a.onclick=e=>{e.preventDefault();const m=mats.find(x=>x.id===a.dataset.edit);if(!m)return;editId=m.id;$("fT").value=m.title||"";$("fC").value=m.cat;$("fD").value=m.desc||"";$("fL").value=m.link||"";$("form").classList.remove("hide");$("form").scrollIntoView({behavior:"smooth"})});
+ $("more").classList.toggle("hide",mats.length<lim);
  document.querySelectorAll(".card").forEach((c,i)=>{c.style.setProperty("--i",Math.min(i,12));c.onpointermove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.setProperty("--mx",(x+.5)*100+"%");c.style.setProperty("--my",(y+.5)*100+"%");c.style.transform=`rotateY(${x*12}deg) rotateX(${-y*12}deg) translateZ(8px)`};c.onpointerleave=()=>c.style.transform=""})}
 
 $("save").onclick=async()=>{
- const title=$("fT").value.trim();if(!title)return alert("Sarlavha kiriting");
- const id="m"+Date.now()+Math.random().toString(36).slice(2,6);
- try{await setDoc(doc(db,"materials",id),{title,cat:$("fC").value,desc:$("fD").value.trim(),link:$("fL").value.trim(),uid:U.uid,author:U.displayName||"Ustoz",ts:Date.now()});
-  ["fT","fD","fL"].forEach(i=>$(i).value="");$("form").classList.add("hide")}catch(e){alert("Saqlab bo'lmadi: ruxsat yo'q")}};
+ const title=$("fT").value.trim(),link=$("fL").value.trim();if(!title)return alert("Sarlavha kiriting");
+ if(link&&!safe(link))return alert("Havola https:// bilan boshlanishi kerak");
+ const old=editId?mats.find(x=>x.id===editId):null,id=editId||"m"+Date.now()+Math.random().toString(36).slice(2,6);
+ const data={title,cat:$("fC").value,desc:$("fD").value.trim(),link,uid:old?old.uid:U.uid,author:old?old.author:(U.displayName||"Ustoz"),ts:old?old.ts:Date.now()};
+ try{await setDoc(doc(db,"materials",id),data);editId=null;["fT","fD","fL"].forEach(i=>$(i).value="");$("form").classList.add("hide")}catch(e){alert("Saqlab bo'lmadi: ruxsat yo'q yoki matn juda uzun")}};
 
 function showAsk(pending){
  $("ask").classList.remove("hide");
@@ -151,7 +184,7 @@ function startMain(){
    document.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>deleteDoc(doc(db,"members",b.dataset.no)))},()=>{}))}}
 
 tabs();$("main").classList.remove("hide");
-onSnapshot(collection(db,"materials"),s=>{mats=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{});
+listen();
 onAuthStateChanged(auth,async u=>{
  unsubs.forEach(f=>f());unsubs=[];U=u;memMap={};
  ["ask","admin","addBtn","form"].forEach(i=>$(i).classList.add("hide"));render();
