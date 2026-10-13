@@ -113,7 +113,7 @@ import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged} f
 import {getFirestore,collection,doc,getDoc,setDoc,deleteDoc,onSnapshot,query,orderBy,limit} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const app=initializeApp({apiKey:"AIzaSyDTKTFTFbg79LuRcLkoENgZVpicx_53qfc",authDomain:"ustozlarxazinasi.firebaseapp.com",projectId:"ustozlarxazinasi",storageBucket:"ustozlarxazinasi.firebasestorage.app",messagingSenderId:"863001951353",appId:"1:863001951353:web:5d0e2e5cde4a358e8a28a8"});
 const auth=getAuth(app),db=getFirestore(app);
-const ADMIN="telbahacker2006@gmail.com";
+const ADMINS=["telbahacker2006@gmail.com","qumrinisousmonova01@gmail.com"];
 const CATS=["💡 Qiziqarli metodlar","📋 Dars rejalari","📝 Test va topshiriqlar","🖥 Taqdimotlar","🎮 Interfaol o'yinlar","🎬 Video darslar","📦 Boshqa"];
 const $=id=>document.getElementById(id);
 addEventListener("pointermove",e=>{const sc=document.querySelector(".scene");if(!sc)return;sc.style.setProperty("--rx",(e.clientY/innerHeight-.5)*-24+"deg");sc.style.setProperty("--ry",(e.clientX/innerWidth-.5)*40+"deg")});
@@ -178,9 +178,9 @@ function startMain(){
  if(isAdmin){$("admin").classList.remove("hide");
   unsubs.push(onSnapshot(collection(db,"requests"),s=>{const a=s.docs;
    $("reqs").innerHTML="<b>So'rovlar</b>"+(a.length?a.map(d=>{const r=d.data();return `<div class="row"><span>${esc(r.name)}<br><small>${esc(r.email)} · ${esc(r.phone)}</small></span><button class="btn" data-ok="${d.id}">Ruxsat</button></div>`}).join(""):`<div class="row" style="color:var(--mut)">So'rov yo'q</div>`);
-   document.querySelectorAll("[data-ok]").forEach(b=>b.onclick=async()=>{const r=a.find(x=>x.id===b.dataset.ok).data();await setDoc(doc(db,"members",b.dataset.ok),{name:r.name,email:r.email,ts:Date.now()});await deleteDoc(doc(db,"requests",b.dataset.ok))})},()=>{}));
+   document.querySelectorAll("[data-ok]").forEach(b=>b.onclick=async()=>{const r=a.find(x=>x.id===b.dataset.ok).data();await setDoc(doc(db,"members",b.dataset.ok),{name:r.name,email:r.email,phone:r.phone||"",ts:Date.now()});await deleteDoc(doc(db,"requests",b.dataset.ok))})},()=>{}));
   unsubs.push(onSnapshot(collection(db,"members"),s=>{memMap=Object.fromEntries(s.docs.map(d=>[d.id,d.data().email]));memMap[U.uid]=U.email;render();
-   $("mems").innerHTML="<b style='display:block;margin-top:10px'>Ruxsat berilganlar</b>"+(s.docs.length?s.docs.map(d=>`<div class="row"><span>${esc(d.data().name)}<br><small>${esc(d.data().email)}</small></span><button class="btn r" data-no="${d.id}">Olib tashlash</button></div>`).join(""):`<div class="row" style="color:var(--mut)">Hali hech kim</div>`);
+   $("mems").innerHTML="<b style='display:block;margin-top:10px'>Ruxsat berilganlar</b>"+(s.docs.length?s.docs.map(d=>`<div class="row"><span>${esc(d.data().name)}<br><small>${esc(d.data().email)} · 📞 ${esc(d.data().phone||"—")}</small></span><button class="btn r" data-no="${d.id}">Olib tashlash</button></div>`).join(""):`<div class="row" style="color:var(--mut)">Hali hech kim</div>`);
    document.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>deleteDoc(doc(db,"members",b.dataset.no)))},()=>{}))}}
 
 tabs();$("main").classList.remove("hide");
@@ -190,7 +190,7 @@ onAuthStateChanged(auth,async u=>{
  ["ask","admin","addBtn","form"].forEach(i=>$(i).classList.add("hide"));render();
  $("login").classList.toggle("hide",!!u);$("logout").classList.toggle("hide",!u);
  if(!u){$("who").textContent="";return}
- isAdmin=u.email===ADMIN&&u.emailVerified;
+ isAdmin=ADMINS.includes((u.email||"").toLowerCase())&&u.emailVerified;
  $("who").textContent=(isAdmin?"👑 ":"")+(u.displayName||u.email);
  try{
   if(isAdmin||(await getDoc(doc(db,"members",u.uid))).exists())return startMain();
