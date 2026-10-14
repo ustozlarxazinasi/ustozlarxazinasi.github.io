@@ -71,6 +71,8 @@ footer{text-align:center;color:var(--mut);font-size:11px;letter-spacing:.6px;pad
 [data-theme=light] .cats div,[data-theme=light] input,[data-theme=light] select,[data-theme=light] textarea{background:rgba(255,255,255,.8)}
 [data-theme=light] .hero h2{background:linear-gradient(120deg,#1c1830,#9a6a00,#d97706);-webkit-background-clip:text;background-clip:text}
 [data-theme=light] .bg i{opacity:.18}[data-theme=light] option{background:#fff}
+a.btn{text-decoration:none;display:inline-block}
+.tgs{padding:6px 16px;font-size:13px;box-shadow:none}
 </style></head><body>
 <div class="bg"><i></i><i></i><i></i></div>
 <div class="wrap">
@@ -105,6 +107,7 @@ footer{text-align:center;color:var(--mut);font-size:11px;letter-spacing:.6px;pad
 <div class="panel hide" id="admin"><h3 style="margin-top:0">🔐 Admin: kirish boshqaruvi</h3><div id="reqs"></div><div id="mems"></div></div>
 </div>
 <div id="vid" class="hide"><div class="vb"><button class="btn g" id="vx">✕ Yopish</button><iframe id="vf" allowfullscreen allow="encrypted-media; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div>
+<div style="text-align:center;padding-top:20px"><a class="btn g tgs" href="https://t.me/+B1gxWZ_VdgxjZTAy" target="_blank" rel="noopener noreferrer">✈️ Telegram</a></div>
 <footer>created by @azz_films</footer>
 
 <script type="module">
@@ -169,7 +172,7 @@ $("save").onclick=async()=>{
 function showAsk(pending){
  $("ask").classList.remove("hide");
  $("ask").innerHTML=pending?"⏳ So'rovingiz yuborilgan. Admin ruxsat berishini kuting.":
- `🔒 Material qo'shish uchun admin ruxsati kerak (ko'rish hamma uchun ochiq).<br><br><input id="ph" placeholder="Telefon raqamingiz (admin sizni tanishi uchun)"><button class="btn" id="req">Ruxsat so'rash</button>`;
+ `🔒 Material qo'shish uchun admin ruxsati kerak (ko'rish hamma uchun ochiq).<br><br><input id="ph" placeholder="Telefon raqamingiz (admin sizni tanib olishi uchun)"><button class="btn" id="req">Ruxsat so'rash</button>`;
  if(!pending)$("req").onclick=async()=>{const p=$("ph").value.trim();if(!p)return alert("Telefon raqam yozing");
   await setDoc(doc(db,"requests",U.uid),{name:U.displayName||"",email:U.email||"",phone:p,ts:Date.now()});showAsk(true)}}
 
